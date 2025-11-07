@@ -1,287 +1,300 @@
-# Backend API
+# Task Manager API
 
-RESTful API для управления задачами с аутентификацией пользователей, построенная на NestJS.
+<img src="https://img.shields.io/badge/Nest.js-%23E0234E.svg?logo=nestjs&logoColor=white" height="40" alt="nestjs logo"  />
+<img width="12" />
+<img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white" height="40" alt="prisma logo"  />
+<img width="12" />
+<img src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white" height="40" alt="postgresql logo"  />
+<img width="12" />
+<img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff" height="40" alt="docker logo"  />
+<img width="12" />
+<img src="https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff" height="40" alt="byn logo"  />
 
-## 🚀 Технологии
+RESTful API for task management with user authentication, built with NestJS.
 
-- **NestJS** - прогрессивный Node.js фреймворк
-- **TypeScript** - типизированный JavaScript
-- **Prisma** - современный ORM для работы с базой данных
-- **PostgreSQL** - реляционная база данных
-- **JWT** - аутентификация с использованием JSON Web Tokens
-- **Argon2** - хеширование паролей
-- **Swagger** - документация API
-- **Passport** - стратегии аутентификации
+## 🚀 Technologies
 
-## 📋 Функциональность
+- **NestJS** - Progressive Node.js framework
+- **TypeScript** - Typed JavaScript
+- **Prisma** - Modern ORM for database operations
+- **PostgreSQL** - Relational database
+- **JWT** - Authentication using JSON Web Tokens
+- **Argon2** - Password hashing
+- **Swagger** - API documentation
+- **Passport** - Authentication strategies
 
-### Аутентификация
+## 📋 Features
 
-- Регистрация пользователей
-- Вход в систему
-- Обновление access token через refresh token
-- Выход из системы
-- Получение информации о текущем пользователе
+### Authentication
 
-### Управление задачами
+- User registration
+- User login
+- Access token refresh via refresh token
+- User logout
+- Get current user information
 
-- Создание задач
-- Получение списка задач с фильтрацией, поиском и сортировкой
-- Получение задачи по ID
-- Обновление задачи (частичное и полное)
-- Удаление задачи
+### Task Management
 
-## 🛠 Установка
+- Create tasks
+- Get task list with filtering, search, and sorting
+- Get task by ID
+- Update task (partial and full)
+- Delete task
 
-### Требования
+## 🛠 Installation
 
-- Node.js (рекомендуется версия 18+)
+### Requirements
+
+- Node.js (version 18+ recommended)
 - PostgreSQL 12+
-- Bun или npm/yarn
+- Bun or npm/yarn
 
-### Шаги установки
+### Installation Steps
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
 ```bash
 git clone <repository-url>
 cd backend
 ```
 
-2. Установите зависимости:
+2. Install dependencies:
 
 ```bash
 bun install
-# или
+# or
 npm install
+# or
+yarn install
 ```
 
-3. Создайте файл `.env` в корне проекта:
+3. Create a `.env` file in the project root:
 
 ```env
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/database_name?schema=public"
 
-# JWT
+# JWT Configuration
 JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
+JWT_ACCESS_TOKEN_TTL="15m"
+JWT_REFRESH_TOKEN_TTL="7d"
 
-# Server
-PORT=3000
+# Cookie Configuration
+COOKIE_DOMAIN="localhost"
+
+# Server Configuration
+PORT=1488
 NODE_ENV=development
 ```
 
-4. Настройте базу данных:
+4. Set up the database:
 
 ```bash
-# Примените миграции
+# Apply migrations
 bunx prisma migrate dev
-# или
+# or
 npx prisma migrate dev
+# or
+yarn prisma migrate dev
 
-# Сгенерируйте Prisma Client
+# Generate Prisma Client
 bunx prisma generate
-# или
+# or
 npx prisma generate
+# or
+yarn prisma generate
 ```
 
-5. Запустите приложение:
+5. Run the application:
 
 ```bash
-# Режим разработки
+# Development mode
 bun run start:dev
-# или
+# or
 npm run start:dev
+# or
+yarn start:dev
 
-# Production режим
+# Production mode
 bun run build
 bun run start:prod
-# или
+# or
 npm run build
 npm run start:prod
+# or
+yarn build
+yarn start:prod
 ```
 
-## 📚 API Документация
+## 📚 API Documentation
 
-После запуска приложения, Swagger документация доступна по адресу:
+After starting the application, Swagger documentation is available at:
 
 ```
-http://localhost:3000/api/docs
+http://localhost:1488/docs
 ```
 
-## 🔐 Аутентификация
+## 🔐 Authentication
 
-API использует JWT токены для аутентификации. После успешной регистрации или входа, токены сохраняются в HTTP-only cookies.
+The API uses JWT tokens for authentication. After successful registration or login, tokens are stored in HTTP-only cookies.
 
 ### Endpoints
 
-- `POST /api/auth/register` - Регистрация нового пользователя
-- `POST /api/auth/login` - Вход в систему
-- `POST /api/auth/refresh-token` - Обновление access token
-- `POST /api/auth/logout` - Выход из системы
-- `GET /api/auth/@me` - Получение информации о текущем пользователе (требует аутентификации)
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login to the system
+- `POST /api/auth/refresh-token` - Refresh access token
+- `POST /api/auth/logout` - Logout from the system
+- `GET /api/auth/@me` - Get current user information (requires authentication)
 
-### Использование защищенных endpoints
+### Using Protected Endpoints
 
-Для доступа к защищенным endpoints (например, `/api/tasks`), необходимо:
+To access protected endpoints (e.g., `/api/tasks`), you need to:
 
-1. Войти в систему через `/api/auth/login`
-2. Токен будет автоматически сохранен в cookies
-3. При последующих запросах токен будет автоматически отправлен
+1. Login to the system via `/api/auth/login`
+2. The token will be automatically saved in cookies
+3. On subsequent requests, the token will be automatically sent
 
-Или вы можете использовать Bearer token в заголовке:
+Alternatively, you can use a Bearer token in the header:
 
 ```
 Authorization: Bearer <your-access-token>
 ```
 
-## 📝 Управление задачами
+## 📝 Task Management
 
 ### Endpoints
 
-- `GET /api/tasks` - Получить все задачи (с фильтрацией, поиском и сортировкой)
-- `GET /api/tasks/:id` - Получить задачу по ID
-- `POST /api/tasks` - Создать новую задачу
-- `PUT /api/tasks/:id` - Полностью заменить задачу
-- `PATCH /api/tasks/:id` - Частично обновить задачу
-- `DELETE /api/tasks/:id` - Удалить задачу
+- `GET /api/tasks` - Get all tasks (with filtering, search, and sorting)
+- `GET /api/tasks/:id` - Get task by ID
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/:id` - Fully replace a task
+- `PATCH /api/tasks/:id` - Partially update a task
+- `DELETE /api/tasks/:id` - Delete a task
 
-Все endpoints задач требуют аутентификации.
+All task endpoints require authentication.
 
-### Фильтрация и поиск
+### Filtering and Search
 
-При получении списка задач доступны следующие query параметры:
+When getting a list of tasks, the following query parameters are available:
 
-- `isCompleted` - фильтр по статусу выполнения (boolean)
-- `priority` - фильтр по приоритету (number)
-- `tags` - фильтр по тегам (string[])
-- `search` - поиск по названию (string)
-- `sortBy` - поле для сортировки
-- `sortOrder` - порядок сортировки (asc/desc)
+- `isCompleted` - Filter by completion status (boolean)
+- `priority` - Filter by priority (number)
+- `tags` - Filter by tags (string[])
+- `search` - Search by title (string)
+- `sortBy` - Field for sorting
+- `sortOrder` - Sort order (asc/desc)
 
-## 🗄 База данных
+## 🗄 Database
 
-Проект использует Prisma для работы с базой данных. Схема базы данных определена в `prisma/schema.prisma`.
+The project uses Prisma for database operations. The database schema is defined in `prisma/schema.prisma`.
 
-### Модели
+### Models
 
 **User**
 
 - `id` - UUID
-- `email` - уникальный email
-- `password` - хешированный пароль
-- `name` - имя пользователя
-- `createdAt` - дата создания
-- `updatedAt` - дата обновления
-- `tasks` - связанные задачи
+- `email` - Unique email
+- `password` - Hashed password
+- `name` - User name
+- `createdAt` - Creation date
+- `updatedAt` - Update date
+- `tasks` - Related tasks
 
 **Task**
 
 - `id` - UUID
-- `title` - название задачи
-- `description` - описание задачи
-- `isCompleted` - статус выполнения
-- `priority` - приоритет
-- `tags` - массив тегов
-- `createdAt` - дата создания
-- `updatedAt` - дата обновления
-- `ownerId` - ID владельца задачи
+- `title` - Task title
+- `description` - Task description
+- `isCompleted` - Completion status
+- `priority` - Priority
+- `tags` - Array of tags
+- `createdAt` - Creation date
+- `updatedAt` - Update date
+- `ownerId` - Task owner ID
 
-### Миграции
+### Migrations
 
 ```bash
-# Создать новую миграцию
+# Create a new migration
 bunx prisma migrate dev --name migration_name
 
-# Применить миграции в production
+# Apply migrations in production
 bunx prisma migrate deploy
 
-# Откатить миграцию
+# Rollback migration
 bunx prisma migrate reset
 ```
 
 ### Prisma Studio
 
-Для визуального просмотра и редактирования данных:
+For visual viewing and editing of data:
 
 ```bash
 bunx prisma studio
 ```
 
-## 🧪 Тестирование
+## 📦 Scripts
 
-```bash
-# Unit тесты
-bun run test
-
-# E2E тесты
-bun run test:e2e
-
-# Тесты с покрытием
-bun run test:cov
-
-# Тесты в watch режиме
-bun run test:watch
-```
-
-## 📦 Скрипты
-
-- `build` - сборка проекта
-- `start` - запуск приложения
-- `start:dev` - запуск в режиме разработки с hot-reload
-- `start:debug` - запуск в режиме отладки
-- `start:prod` - запуск production версии
-- `lint` - проверка кода линтером
-- `format` - форматирование кода
-- `test` - запуск тестов
-- `test:watch` - запуск тестов в watch режиме
-- `test:cov` - запуск тестов с покрытием
-- `test:e2e` - запуск E2E тестов
+- `build` - Build the project
+- `start` - Start the application
+- `start:dev` - Start in development mode with hot-reload
+- `start:debug` - Start in debug mode
+- `start:prod` - Start production version
+- `lint` - Lint the code
+- `format` - Format the code
+- `test` - Run tests
+- `test:watch` - Run tests in watch mode
+- `test:cov` - Run tests with coverage
+- `test:e2e` - Run E2E tests
 
 ## 🐳 Docker
 
-В проекте есть Dockerfile для PostgreSQL. Для запуска базы данных:
+The project includes a Dockerfile for PostgreSQL. To run the database:
 
 ```bash
 docker build -t postgres-db .
 docker run -d -p 5432:5432 postgres-db
 ```
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 src/
-├── auth/              # Модуль аутентификации
-│   ├── decorators/    # Декораторы для авторизации
+├── auth/              # Authentication module
+│   ├── decorators/    # Authorization decorators
 │   ├── dto/           # Data Transfer Objects
-│   ├── guards/        # Guards для защиты routes
-│   ├── interfaces/    # Интерфейсы
-│   └── stategies/     # Passport стратегии
-├── tasks/             # Модуль задач
-│   └── dto/           # DTO для задач
-├── common/            # Общие компоненты
-│   ├── dto/           # Общие DTO
+│   ├── guards/        # Route protection guards
+│   ├── interfaces/    # Interfaces
+│   └── stategies/     # Passport strategies
+├── tasks/             # Task module
+│   └── dto/           # Task DTOs
+├── common/            # Common components
+│   ├── dto/           # Common DTOs
 │   └── middlewares/   # Middleware
-├── config/            # Конфигурация
-├── prisma/            # Prisma сервис
-└── utils/             # Утилиты
+├── config/            # Configuration
+├── prisma/            # Prisma service
+└── utils/             # Utilities
 ```
 
-## 🔒 Безопасность
+## 🔒 Security
 
-- Пароли хешируются с использованием Argon2
-- JWT токены хранятся в HTTP-only cookies
-- Валидация входных данных через class-validator
-- Защита от SQL инъекций через Prisma
-- CORS настраивается для production
+- Passwords are hashed using Argon2
+- JWT tokens are stored in HTTP-only cookies
+- Input validation via class-validator
+- SQL injection protection via Prisma
+- CORS configured for production
 
-## 📄 Лицензия
+## 📄 License
 
-UNLICENSED
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Автор
+## 👤 Author
 
-axhelnq
+**axhelnq**
+
+- GitHub: [@axhelnq](https://github.com/axhelnq)
+- Email: axhelnq@gmail.com
 
 ---
 
-Для дополнительной информации смотрите [документацию NestJS](https://docs.nestjs.com/).
+For more information, see the [NestJS documentation](https://docs.nestjs.com/).
