@@ -1,14 +1,6 @@
 # Task Manager API
 
-<img src="https://img.shields.io/badge/Nest.js-%23E0234E.svg?logo=nestjs&logoColor=white" height="40" alt="nestjs logo"  />
-<img width="12" />
-<img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white" height="40" alt="prisma logo"  />
-<img width="12" />
-<img src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white" height="40" alt="postgresql logo"  />
-<img width="12" />
-<img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff" height="40" alt="docker logo"  />
-<img width="12" />
-<img src="https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff" height="40" alt="byn logo"  />
+<img src="https://img.shields.io/badge/Nest.js-%23E0234E.svg?logo=nestjs&logoColor=white" height="50" alt="nestjs logo"  /> <img width="6" /> <img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white" height="50" alt="prisma logo"  /> <img width="6" /> <img src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white" height="50" alt="postgresql logo"  /> <img width="6" /> <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff" height="50" alt="docker logo"  /> <img width="6" /> <img src="https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff" height="50" alt="byn logo"  />
 
 RESTful API for task management with user authentication, built with NestJS.
 
