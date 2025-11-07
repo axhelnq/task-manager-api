@@ -1,16 +1,26 @@
-import { createParamDecorator } from '@nestjs/common';
-import type { ExecutionContext } from '@nestjs/common';
+import {
+  createParamDecorator,
+  ExecutionContext,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
-import type { Request } from 'express';
+
+interface RequestWithUser {
+  user: User;
+}
 
 export const Authorized = createParamDecorator(
-  (data: keyof User, ctx: ExecutionContext) => {
-    // TODO: fix typization
-    const request = ctx.switchToHttp().getRequest() as Request;
-
+  <K extends keyof User>(data: K | undefined, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest<RequestWithUser>();
     const user = request.user;
 
-    // TODO: !
-    return data ? user![data] : user;
+    // Перевірка на випадок, якщо декоратор використано без AuthGuard
+    if (!user) {
+      throw new InternalServerErrorException(
+        'User not found in request. Did you forget to apply an AuthGuard?',
+      );
+    }
+
+    return data ? user[data] : user;
   },
 );

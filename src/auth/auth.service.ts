@@ -14,6 +14,7 @@ import { LoginReq } from './dto/login.dto';
 import type { Request, Response } from 'express';
 import { isDev } from 'src/utils/isDev.util';
 import { timeToMs } from 'src/utils/timeToMs.util';
+import type { StringValue } from 'ms';
 
 @Injectable()
 export class AuthService {
@@ -84,8 +85,7 @@ export class AuthService {
   }
 
   async refreshToken(req: Request, res: Response) {
-    // TODO: fix typization
-    const refreshToken = req.cookies?.['refreshToken'] // as string | undefined;
+    const refreshToken = req.cookies?.['refreshToken'] as string | undefined;
     if (!refreshToken) {
       throw new UnauthorizedException('Refresh token is not available');
     }
@@ -110,19 +110,17 @@ export class AuthService {
     const payload: JwtPayload = { id };
 
     const accessToken = this.jwtService.sign(payload, {
-      // TODO: fix any
-      expiresIn: this.JWT_ACCESS_TOKEN_TTL as any,
+      expiresIn: this.JWT_ACCESS_TOKEN_TTL as StringValue | number,
     });
 
     const refreshToken = this.jwtService.sign(payload, {
-      // TODO: fix any
-      expiresIn: this.JWT_REFRESH_TOKEN_TTL as any,
+      expiresIn: this.JWT_REFRESH_TOKEN_TTL as StringValue | number,
     });
 
     return { accessToken, refreshToken };
   }
 
-  async logout(res: Response) {
+  logout(res: Response) {
     this.setTokenToCookie(res, 'refreshToken', '', new Date(0));
     this.setTokenToCookie(res, 'accessToken', '', new Date(0));
     return true;

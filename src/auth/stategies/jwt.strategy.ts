@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         ExtractJwt.fromAuthHeaderAsBearerToken(),
         (request: Request) => {
           // Якщо токен не знайдено в заголовку, шукаємо в куках
-          return request?.cookies?.['accessToken'] || null;
+          return request?.cookies?.['accessToken'] as string | null;
         },
       ]),
       ignoreExpiration: false,

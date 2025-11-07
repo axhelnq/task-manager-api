@@ -130,7 +130,7 @@ export class AuthController {
   @Get('@me')
   @Authorization()
   @HttpCode(HttpStatus.OK)
-  async me(@Authorized() user: User) {
+  me(@Authorized() user: User) {
     return user;
   }
 }
