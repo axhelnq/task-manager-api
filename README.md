@@ -126,23 +126,31 @@ After starting the application, Swagger documentation is available at:
 http://localhost:1488/docs
 ```
 
+### API Versioning
+
+The API uses URI versioning. All endpoints are prefixed with `/api/v1/`. For example:
+
+- `/api/v1/auth/login`
+- `/api/v1/tasks`
+- `/api/v1/health`
+
 ## 🔐 Authentication
 
 The API uses JWT tokens for authentication. After successful registration or login, tokens are stored in HTTP-only cookies.
 
 ### Endpoints
 
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login to the system
-- `POST /api/auth/refresh-token` - Refresh access token
-- `POST /api/auth/logout` - Logout from the system
-- `GET /api/auth/@me` - Get current user information (requires authentication)
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - Login to the system
+- `POST /api/v1/auth/refresh-token` - Refresh access token
+- `POST /api/v1/auth/logout` - Logout from the system
+- `GET /api/v1/auth/@me` - Get current user information (requires authentication)
 
 ### Using Protected Endpoints
 
-To access protected endpoints (e.g., `/api/tasks`), you need to:
+To access protected endpoints (e.g., `/api/v1/tasks`), you need to:
 
-1. Login to the system via `/api/auth/login`
+1. Login to the system via `/api/v1/auth/login`
 2. The token will be automatically saved in cookies
 3. On subsequent requests, the token will be automatically sent
 
@@ -156,12 +164,12 @@ Authorization: Bearer <your-access-token>
 
 ### Endpoints
 
-- `GET /api/tasks` - Get all tasks (with filtering, search, and sorting)
-- `GET /api/tasks/:id` - Get task by ID
-- `POST /api/tasks` - Create a new task
-- `PUT /api/tasks/:id` - Fully replace a task
-- `PATCH /api/tasks/:id` - Partially update a task
-- `DELETE /api/tasks/:id` - Delete a task
+- `GET /api/v1/tasks` - Get all tasks (with filtering, search, and sorting)
+- `GET /api/v1/tasks/:id` - Get task by ID
+- `POST /api/v1/tasks` - Create a new task
+- `PUT /api/v1/tasks/:id` - Fully replace a task
+- `PATCH /api/v1/tasks/:id` - Partially update a task
+- `DELETE /api/v1/tasks/:id` - Delete a task
 
 All task endpoints require authentication.
 

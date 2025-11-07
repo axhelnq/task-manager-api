@@ -14,12 +14,12 @@ export const API_CONFIG = {
     name: 'MIT',
     url: 'https://github.com',
   },
-  basePath: '/api',
-  documentationPath: '/api/docs',
+  basePath: '/api/v1',
+  documentationPath: '/docs',
   endpoints: {
-    auth: '/api/auth',
-    tasks: '/api/tasks',
-    health: '/api/health',
-    info: '/api/info',
+    auth: '/api/v1/auth',
+    tasks: '/api/v1/tasks',
+    health: '/api/v1/health',
+    info: '/api/v1/info',
   },
 } as const;

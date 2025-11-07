@@ -4,7 +4,9 @@ import { API_CONFIG } from './api.config';
 export function getSwaggerConfig() {
   return new DocumentBuilder()
     .setTitle(API_CONFIG.title)
-    .setDescription(API_CONFIG.description)
+    .setDescription(
+      `${API_CONFIG.description} The API uses URI versioning with the format /api/v{version}/{endpoint}.`,
+    )
     .setVersion(API_CONFIG.version)
     .setContact(
       API_CONFIG.contact.name,
