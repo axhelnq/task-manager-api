@@ -1,0 +1,69 @@
+# === Build output ===
+/dist
+/build
+
+# === Dependencies ===
+/node_modules
+bun.lockb
+
+# === Environment files ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === Logs ===
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# === OS ===
+.DS_Store
+
+# === Tests ===
+/coverage
+/.nyc_output
+
+# === Editors & IDEs ===
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VSCode (allow project configs)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# === Runtime data ===
+pids
+*.pid
+*.seed
+*.pid.lock
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# === Prisma ===
+/generated/prisma
+/prisma/migrations/dev.db-journal
+/prisma/dev.db
+*.db-journal
+
+# === Docker ===
+docker-data/
+*.pid
+*.log
+*.pid.lock
+
+# === Temp ===
+.temp
+.tmp
